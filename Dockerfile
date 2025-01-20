@@ -5,7 +5,7 @@ ENV workspace=/tmp
 COPY . ${workspace}
 
 WORKDIR ${workspace}
-RUN apt update && apt install wget -y;chmod +x ${workspace}/installer.sh
+RUN chmod +x ${workspace}/installer.sh
 RUN ${workspace}/installer.sh
 
 #RUN getent group kvm || groupadd -r kvm
