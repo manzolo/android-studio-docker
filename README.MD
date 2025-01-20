@@ -2,9 +2,6 @@
 
 A bash script to automate the installation of Android Studio, its prerequisites, and useful tools such as Fastboot and ADB. This setup also includes a Docker configuration to run Android Studio in a containerized environment.
 
-## Author
-- **manzolo**
-
 ## Inspired By
 - [letsfoss/Android-Studio-Installer-Script](https://github.com/letsfoss/Android-Studio-Installer-Script)
 
@@ -54,6 +51,8 @@ docker-compose up
 
 The script and Docker configuration expect the following structure for mounted directories:
 
+```
+
 mount/Android: For Android SDKs and files.
 mount/.android: To store Android-related configurations.
 mount/.AndroidStudio: To persist Android Studio settings.
@@ -62,3 +61,5 @@ mount/.config/Google: For Google-related configurations.
 mount/.gradle: To store Gradle-related data.
 mount/.cache/Google: To store Google cache files.
 mount/.ssh: For SSH keys.
+
+```
