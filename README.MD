@@ -13,8 +13,9 @@ A bash script to automate the installation of Android Studio, its prerequisites,
 - Installs JDK 21 and sets up environment variables.
 - Installs Android debugging tools (`fastboot` and `adb`).
 - Configures Android Studio with a `.desktop` entry for easy access.
-- Optional Docker container configuration for running Android Studio.
-
+- Optional Docker container configuration for running Android Studio with:
+  - **NVIDIA GPU acceleration** for enhanced performance.
+  - **Wayland compatibility** for modern Linux display protocols.
 ---
 
 ## Usage
@@ -22,7 +23,9 @@ A bash script to automate the installation of Android Studio, its prerequisites,
 ### Prerequisites
 Ensure you have the following installed:
 - A Linux-based operating system (e.g., Ubuntu)
-- Docker (if using the containerized option)
+- NVIDIA GPU with drivers installed
+- Docker (with NVIDIA Container Toolkit) if using the containerized option
+- Wayland display server (optional, for Wayland support)
 
 ### Running the Script
 1. Clone the repository:
