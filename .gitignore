@@ -1,0 +1,16 @@
+mount/.android/*
+!mount/.android/.gitkeep
+mount/.AndroidStudio/*
+!mount/.AndroidStudio/.gitkeep
+mount/Android/*
+!mount/Android/.gitkeep
+mount/.cache/*
+!mount/.cache/.gitkeep
+mount/.gradle/*
+!mount/.gradle/.gitkeep
+mount/.config/*
+!mount/.config/.gitkeep
+mount/.ssh/*
+!mount/.ssh/.gitkeep
+mount/.StudioProjects/*
+!mount/.StudioProjects/.gitkeep
