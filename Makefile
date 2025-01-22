@@ -1,12 +1,17 @@
-IMAGE_NAME :=manzolo/android-studio
-REGISTRY:=docker-hub.lan:5000/
+ENV_FILE := .env
+
+# Carica le variabili dal file .env
+ifneq (,$(wildcard $(ENV_FILE)))
+    include $(ENV_FILE)
+    export $(shell sed 's/=.*//' $(ENV_FILE))
+endif
 
 # Target per avviare i container
 start:
 	@echo "Consentire connessioni X11 locali"
 	@xhost +SI:localuser:$(shell id -un)
 	@echo "Riavvio i container Docker Compose"
-	docker compose run --remove-orphans android-studio
+	docker compose run --remove-orphans ${CONTAINER_NAME}
 
 # Target per fermare i container
 stop:
@@ -17,7 +22,7 @@ stop:
 # Target per la build dell'immagine
 build:
 	@echo "Build dell'immagine"
-	docker build --build-arg CONTAINER_USERNAME=utente -t ${IMAGE_NAME} .
+	docker build --build-arg CONTAINER_USERNAME=${CONTAINER_USERNAME} -t ${IMAGE_NAME} .
 	@echo "Immagine costruita: ${IMAGE_NAME}"
 
 registry_tag:
@@ -36,4 +41,4 @@ enter:
 	@echo "Consentire connessioni X11 locali"
 	@xhost +SI:localuser:$(shell id -un)
 	@echo "Enter Container"
-	docker compose run --remove-orphans android-studio /bin/bash
+	docker compose run --remove-orphans ${CONTAINER_NAME} /bin/bash
