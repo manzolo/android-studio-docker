@@ -1,4 +1,4 @@
-# Android Studio Installer Script
+# Android Studio Docker (with Installer Script)
 
 A bash script to automate the installation of Android Studio, its prerequisites, and useful tools such as Fastboot and ADB. This setup also includes a Docker configuration to run Android Studio in a containerized environment.
 

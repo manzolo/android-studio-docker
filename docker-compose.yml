@@ -4,6 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: android-studio
+    image: manzolo/android-studio
     runtime: nvidia
     network_mode: host
     #stdin_open: true        # Permette l'interazione con la shell
@@ -18,6 +19,7 @@ services:
       - PUID=${UID:-1000}
       - PGID=${GID:-1000}
       - QT_QPA_PLATFORM=xcb
+      - CONTAINER_USERNAME=${CONTAINER_USERNAME}
     devices:
       - /dev/dri:/dev/dri
       - /dev/kvm:/dev/kvm
@@ -30,14 +32,14 @@ services:
       - /run/user/${UID:-1000}/${WAYLAND_DISPLAY}:/run/user/${UID:-1000}/${WAYLAND_DISPLAY}:ro
       - /run/user/${UID:-1000}/pulse:/run/user/${UID:-1000}/pulse:rw
       - /run/user/${UID:-1000}/avd/running:/run/user/${UID:-1000}/avd/running:rw
-      - $PWD/mount/Android:/home/manzolo/Android
-      - $PWD/mount/.android:/home/manzolo/.android
-      - $PWD/mount/.AndroidStudio:/home/manzolo/.AndroidStudio
-      - $PWD/mount/StudioProjects:/home/manzolo/StudioProjects
-      - $PWD/mount/.config/Google:/home/manzolo/.config/Google
-      - $PWD/mount/.gradle:/home/manzolo/.gradle      
-      - $PWD/mount/.cache/Google:/home/manzolo/.cache/Google
-      - $PWD/mount/.ssh:/home/manzolo/.ssh
+      - $PWD/mount/Android:/home/${CONTAINER_USERNAME:-manzolo}/Android
+      - $PWD/mount/.android:/home/${CONTAINER_USERNAME:-manzolo}/.android
+      - $PWD/mount/.AndroidStudio:/home/${CONTAINER_USERNAME:-manzolo}/.AndroidStudio
+      - $PWD/mount/StudioProjects:/home/${CONTAINER_USERNAME:-manzolo}/StudioProjects
+      - $PWD/mount/.config/Google:/home/${CONTAINER_USERNAME:-manzolo}/.config/Google
+      - $PWD/mount/.gradle:/home/${CONTAINER_USERNAME:-manzolo}/.gradle      
+      - $PWD/mount/.cache/Google:/home/${CONTAINER_USERNAME:-manzolo}/.cache/Google
+      - $PWD/mount/.ssh:/home/${CONTAINER_USERNAME:-manzolo}/.ssh
 
       - /etc/machine-id:/etc/machine-id:ro
       - /etc/localtime:/etc/localtime:ro

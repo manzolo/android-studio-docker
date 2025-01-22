@@ -8,7 +8,7 @@ PrerequisitesInstall() {
 	printf "Installing Prerequisites\n"
 	apt update -qqy
 	apt install wget git qemu-kvm libvirt-clients libvirt-daemon-system libcanberra-gtk-module libcanberra-gtk3-module -y
-	git -version
+	git --version
 }
 
 # Download Android Studio
