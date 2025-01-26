@@ -39,6 +39,8 @@ services:
       - $PWD/mount/.config/Google:/home/${CONTAINER_USERNAME:-manzolo}/.config/Google
       - $PWD/mount/.gradle:/home/${CONTAINER_USERNAME:-manzolo}/.gradle      
       - $PWD/mount/.cache/Google:/home/${CONTAINER_USERNAME:-manzolo}/.cache/Google
+      - $PWD/mount/.java:/home/${CONTAINER_USERNAME:-manzolo}/.java
+      - $PWD/mount/.local:/home/${CONTAINER_USERNAME:-manzolo}/.local
       - $PWD/mount/.ssh:/home/${CONTAINER_USERNAME:-manzolo}/.ssh
 
       - /etc/machine-id:/etc/machine-id:ro

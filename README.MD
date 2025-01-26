@@ -1,6 +1,6 @@
 # Android Studio Docker (with Installer Script)
 
-A bash script to automate the installation of Android Studio, its prerequisites, and useful tools such as Fastboot and ADB. This setup also includes a Docker configuration to run Android Studio in a containerized environment.
+A bash script to automate the installation of Android Studio, its prerequisites, and useful tools such as Fastboot and ADB. This setup includes a Docker configuration to run Android Studio in a containerized environment.
 
 ## Inspired By
 - [letsfoss/Android-Studio-Installer-Script](https://github.com/letsfoss/Android-Studio-Installer-Script)
@@ -9,7 +9,7 @@ A bash script to automate the installation of Android Studio, its prerequisites,
 
 ## Features
 - Installs prerequisites like `wget`, `git`, `qemu-kvm`, and others.
-- Downloads and extracts the latest Android Studio package.
+- Downloads and extracts Android Studio package.
 - Installs JDK 21 and sets up environment variables.
 - Installs Android debugging tools (`fastboot` and `adb`).
 - Configures Android Studio with a `.desktop` entry for easy access.
@@ -27,28 +27,27 @@ Ensure you have the following installed:
 - Docker (with NVIDIA Container Toolkit) if using the containerized option
 - Wayland display server (optional, for Wayland support)
 
-### Running the Script
+### Building image
 1. Clone the repository:
    ```bash
    git clone https://github.com/manzolo/android-studio-docker.git
    cd android-studio-docker
-   chmod +x installer.sh
-   ./installer.sh
+   make build
    ```
 
 ## Docker Configuration
 
-If you prefer to run Android Studio in a Docker container, a docker-compose configuration is provided.
+To run Android Studio in a Docker container, a docker-compose configuration is provided.
 Steps to Use Docker
 
 Ensure Docker and Docker Compose are installed.
 Build and start the container:
 ```bash
-docker-compose up --build
+make build
 ```
 Start the container:
 ```bash
-docker-compose up
+make start
 ```
 ### Directory Structure
 

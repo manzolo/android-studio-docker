@@ -12,5 +12,9 @@ mount/.config/*
 !mount/.config/.gitkeep
 mount/.ssh/*
 !mount/.ssh/.gitkeep
+mount/.java/*
+!mount/.java/.gitkeep
+mount/.local/*
+!mount/.local/.gitkeep
 mount/.StudioProjects/*
 !mount/.StudioProjects/.gitkeep

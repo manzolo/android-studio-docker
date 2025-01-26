@@ -1,5 +1,8 @@
 ENV_FILE := .env
 
+PUID := $(shell id -u)
+PGID := $(shell id -g)
+
 # Carica le variabili dal file .env
 ifneq (,$(wildcard $(ENV_FILE)))
     include $(ENV_FILE)
@@ -23,7 +26,9 @@ stop:
 build:
 	@echo "Build dell'immagine"
 	docker build --build-arg CONTAINER_USERNAME=${CONTAINER_USERNAME} \
-	-t ${REGISTRY_BASE_URL}/${IMAGE_OWNER}/${IMAGE_NAME}:${IMAGE_TAG} .
+		--build-arg PUID=${PUID} \
+		--build-arg PGID=${PGID} \
+		-t ${REGISTRY_BASE_URL}/${IMAGE_OWNER}/${IMAGE_NAME}:${IMAGE_TAG} .
 	@echo "Immagine costruita: ${REGISTRY_BASE_URL}/${IMAGE_OWNER}/${IMAGE_NAME}:${IMAGE_TAG}"
 
 #registry_tag:
@@ -42,4 +47,4 @@ enter:
 	@echo "Consentire connessioni X11 locali"
 	@xhost +SI:localuser:$(shell id -un)
 	@echo "Enter Container"
-	docker compose run --remove-orphans ${CONTAINER_NAME} /bin/bash
+	docker compose run --remove-orphans --entrypoint /bin/bash ${CONTAINER_NAME}

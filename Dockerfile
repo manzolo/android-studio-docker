@@ -18,17 +18,30 @@ RUN ${workspace}/installer.sh
 # Crea un utente non root
 ARG PUID=1000
 ARG PGID=1000
-RUN groupadd -g $PGID ${CONTAINER_USERNAME} && \
-    useradd -m -u $PUID -g $PGID -G kvm -s /bin/bash ${CONTAINER_USERNAME}
+ENV PUID=${PUID}
+ENV PGID=${PGID}
 
-RUN mkdir -p /home/${CONTAINER_USERNAME}/.config/Google/AndroidStudio2024.2 && chown -R ${CONTAINER_USERNAME}:${CONTAINER_USERNAME} /home/${CONTAINER_USERNAME}/.config
+RUN groupadd -g $PGID ${CONTAINER_USERNAME} && \
+    useradd -m -u $PUID -g $PGID -G kvm -s /bin/bash ${CONTAINER_USERNAME} && \
+    echo "${CONTAINER_USERNAME} ALL=(ALL) NOPASSWD:SETENV: /usr/local/bin/chown-user.sh" > /etc/sudoers.d/${CONTAINER_USERNAME} && \
+    chmod 0440 /etc/sudoers.d/${CONTAINER_USERNAME} && \
+    visudo -cf /etc/sudoers.d/${CONTAINER_USERNAME}
+
+COPY chown-user.sh /usr/local/bin/chown-user.sh
+RUN chmod +x /usr/local/bin/chown-user.sh
+
+# Copia lo script di avvio
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
 
 # Cambia contesto all'utente non root
 USER ${CONTAINER_USERNAME}
 WORKDIR /home/${CONTAINER_USERNAME}
 
+RUN mkdir -p /home/${CONTAINER_USERNAME}/.config/Google/AndroidStudio2024.2
+
 # Imposta PATH
 ENV PATH="/opt/android-studio/bin:$PATH"
 
-# Comando di avvio
-CMD ["studio"]
+# Usa lo script di avvio come punto di ingresso
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

@@ -4,17 +4,19 @@
 # InspireBy:
 # Github: https://github.com/letsfoss/Android-Studio-Installer-Script
 
+ANDROID_STUDIO_VERSION=2024.2.2.13
+
 PrerequisitesInstall() {
 	printf "Installing Prerequisites\n"
 	apt update -qqy
-	apt install wget git qemu-kvm libvirt-clients libvirt-daemon-system libcanberra-gtk-module libcanberra-gtk3-module -y
+	apt install sudo wget git qemu-kvm libvirt-clients libvirt-daemon-system libcanberra-gtk-module libcanberra-gtk3-module -y
 	git --version
 }
 
 # Download Android Studio
 DownloadAndroidStudio() {
 	echo "\n Downloading Android Studio \n"
-	wget -c "https://redirector.gvt1.com/edgedl/android/studio/ide-zips/2024.2.2.13/android-studio-2024.2.2.13-linux.tar.gz"
+	wget -c "https://redirector.gvt1.com/edgedl/android/studio/ide-zips/${ANDROID_STUDIO_VERSION}/android-studio-${ANDROID_STUDIO_VERSION}-linux.tar.gz"
 }
 
 # Install JDK21
@@ -45,12 +47,12 @@ FastbootADB() {
 # Install Android Studio
 InstallAndroidStudio() {
 	echo "\n Installing Android Studio \n"
-	tar -xzf android-studio-2024.2.2.13-linux.tar.gz -C /opt
+	tar -xzf android-studio-${ANDROID_STUDIO_VERSION}-linux.tar.gz -C /opt
 
 	mkdir -p "$HOME"/.local/share/applications
 	cat >"$HOME"/.local/share/applications/android-studio.desktop <<-EOF
 		[Desktop Entry]
-		Version=2024.2.2.13
+		Version=${ANDROID_STUDIO_VERSION}
 		Type=Application
 		Name=Android Studio
 		Exec="/opt/android-studio/bin/studio.sh" %f
@@ -66,7 +68,7 @@ InstallAndroidStudio() {
 	echo "\n Installing Finished \n"
 	rm -rf android-studio*
 	rm -rf installer.sh
-	rm -rf android-studio-2024.2.2.13-linux.tar.gz
+	rm -rf android-studio-${ANDROID_STUDIO_VERSION}-linux.tar.gz
 	rm -rf /var/lib/apt/lists/*
 }
 
