@@ -22,14 +22,15 @@ stop:
 # Target per la build dell'immagine
 build:
 	@echo "Build dell'immagine"
-	docker build --build-arg CONTAINER_USERNAME=${CONTAINER_USERNAME} -t ${IMAGE_NAME} .
-	@echo "Immagine costruita: ${IMAGE_NAME}"
+	docker build --build-arg CONTAINER_USERNAME=${CONTAINER_USERNAME} \
+	-t ${REGISTRY_BASE_URL}/${IMAGE_OWNER}/${IMAGE_NAME}:${IMAGE_TAG} .
+	@echo "Immagine costruita: ${REGISTRY_BASE_URL}/${IMAGE_OWNER}/${IMAGE_NAME}:${IMAGE_TAG}"
 
-registry_tag:
-	docker tag ${IMAGE_NAME} ${REGISTRY}${IMAGE_NAME}
+#registry_tag:
+#	docker tag ${IMAGE_NAME} ${REGISTRY}${IMAGE_NAME}
 
 registry_push:
-	docker push ${REGISTRY}${IMAGE_NAME}
+	docker push ${REGISTRY_BASE_URL}/${IMAGE_OWNER}/${IMAGE_NAME}:${IMAGE_TAG}
 
 # Target per la build dell'immagine
 logs:

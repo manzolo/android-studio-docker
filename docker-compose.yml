@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: ${CONTAINER_NAME}
-    image: ${IMAGE_NAME}
+    image: ${REGISTRY_BASE_URL}/${IMAGE_OWNER}/${IMAGE_NAME}:${IMAGE_TAG}
     runtime: nvidia
     network_mode: host
     #stdin_open: true        # Permette l'interazione con la shell
